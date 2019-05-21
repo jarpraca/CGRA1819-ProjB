@@ -10,6 +10,8 @@ class MyScene extends CGFscene {
         super.init(application);
         this.initCameras();
         this.initLights();
+        this.enableTextures(true);
+        this.scaleFactor = 1.0;
 
         //Background color
         this.gl.clearColor(0.0, 0.0, 0.0, 1.0);
@@ -23,9 +25,8 @@ class MyScene extends CGFscene {
 
         //Initialize scene objects
         this.axis = new CGFaxis(this);
-        this.plane = new Plane(this, 32);
-
-        //Objects connected to MyInterface
+        this.appearance = new CGFappearance(this);
+        this.terrain = new MyTerrain(this);
     }
     initLights() {
         this.lights[0].setPosition(15, 2, 5, 1);
@@ -34,7 +35,7 @@ class MyScene extends CGFscene {
         this.lights[0].update();
     }
     initCameras() {
-        this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(45, 45, 45), vec3.fromValues(0, 0, 0));
+        this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(100, 100, 100), vec3.fromValues(0, 0, 0));
     }
     setDefaultAppearance() {
         this.setAmbient(0.2, 0.4, 0.8, 1.0);
@@ -63,11 +64,14 @@ class MyScene extends CGFscene {
         //Apply default appearance
         this.setDefaultAppearance();
 
+        this.appearance.setAmbient(0.2, 0.4, 0.8, 1.0);
+		this.appearance.setDiffuse(0.2, 0.4, 0.8, 1.0);
+		this.appearance.setSpecular(0.2, 0.4, 0.8, 1.0);
+		this.appearance.setShininess(10.0);
+
         // ---- BEGIN Primitive drawing section
         this.pushMatrix();
-        this.rotate(-0.5*Math.PI, 1, 0, 0);
-        this.scale(60, 60, 1);
-        this.plane.display();
+        this.terrain.display();
         this.popMatrix();
         // ---- END Primitive drawing section
     }
