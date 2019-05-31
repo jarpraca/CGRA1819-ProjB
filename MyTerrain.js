@@ -19,7 +19,7 @@ class MyTerrain extends CGFobject {
 		this.scene.appearance.setTexture(this.texture);
 		this.scene.appearance.setTextureWrap('REPEAT', 'REPEAT');
 
-		this.texture2 = new CGFtexture(this.scene, "images/heightmap.jpg");
+		this.texture2 = new CGFtexture(this.scene, "images/heightmap3.jpg");
 		this.texture3 = new CGFtexture(this.scene, "images/altimetry.png");
         
         // Shaders

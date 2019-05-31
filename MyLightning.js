@@ -6,12 +6,8 @@
 class MyLightning extends MyLSystem {
     constructor(scene) {
         super(scene);
-        this.depth = 0;
-        this.start_time = 0;
-        this.active = false;
-        this.i = 0;
-    }
 
+    }
     // cria o lexico da gramática
     initGrammar(){
         this.grammar = {
@@ -19,106 +15,98 @@ class MyLightning extends MyLSystem {
             "X": new MyQuadLightning(this.scene)
         };
     }
-
-    update(t){
-        if((t-this.start_time) >= 1000){
-            //console.log("done "+(t-this.start_time));
-            this.active = false;
-            this.depth = 0;
-        }
-        if(this.active){
-            //this.depth = (t - this.start_time) * this.axiom.length * 0.1;
-            this.depth = this.axiom.length / 1000;
-            //console.log("depth "+this.depth);
-            //console.log(t - this.start_time);
-            this.display();
-        }
+    startAnimation(t){
+        this.active=true;
+        this.startTime=t;
+        this.depth=0;
+        
+        this.axiom = "X";
+        this.ruleF = "FF";
+        this.ruleX = "F[-X][X]F[-X]+FX";
+        //this.scene.doGenerate();
+        super.iterate();
     }
 
-    startAnimation(t){
-        console.log("start");
-        if(!this.active){
-            console.log("aqui");
-            this.active = true;
-            this.start_time = t;
-            super.iterate();
-            this.depth = 0;
-            console.log("length "+this.axiom.length);
+    update(t){
+        if(this.active){
+            this.depth += (this.axiom.length / 10) ;
+
+            if(this.depth>this.axiom.length)
+                this.active=false;
         }
-        else
-            console.log("end");
     }
 
     display(){
-        if(this.depth == 0)
-            return;
-        
-        console.log("depth "+this.depth);
         this.scene.pushMatrix();
-        this.scene.scale(this.scale, this.scale, this.scale);
+        //this.scene.rotate(Math.PI, 0, 0, 1);
+        this.scene.scale(1, -1, 1);
 
-        //var i;
-        var c = 0;
+        var i;
 
         // percorre a cadeia de caracteres
-        for (; this.i<this.axiom.length; ++this.i){
-            if(c >= this.depth)
-                break;
-            // verifica se sao caracteres especiais
-            switch(this.axiom[this.i]){
-                case "+":
-                    // roda a esquerda
-                    this.scene.rotate(this.angle, 0, 0, 1);
-                    break;
+            for (i=0; i<this.axiom.length; ++i){                
 
-                case "-":
-                    // roda a direita
-                    this.scene.rotate(-this.angle, 0, 0, 1);
-                    break;
+                if(i < this.depth){
+                    
+                    // verifica se sao caracteres especiais
+                    switch(this.axiom[i]){
+                        case "+":
+                            // roda a esquerda
+                            this.scene.rotate(this.angle, 0, 0, 1);
+                            break;
 
-                case "\\":
-                    // rotacao positiva eixo XX
-                    this.scene.rotate(this.angle, 1, 0, 0);
-                    break;
-                
-                case "/":
-                    // rotacao negativa eixo XX
-                    this.scene.rotate(-this.angle, 1, 0, 0);
-                    break;
+                        case "-":
+                            // roda a direita
+                            this.scene.rotate(-this.angle, 0, 0, 1);
+                            break;
 
-                case "^":
-                    // rotacao positiva eixo YY
-                    this.scene.rotate(this.angle, 0, 1, 0);
-                    break;
-                
-                case "&":
-                    // rotacao negativa eixo YY
-                    this.scene.rotate(-this.angle, 0, 1, 0);
-                    break;
+                        case "\\":
+                            // rotacao positiva eixo XX
+                            this.scene.rotate(this.angle, 1, 0, 0);
+                            break;
+                        
+                        case "/":
+                            // rotacao negativa eixo XX
+                            this.scene.rotate(-this.angle, 1, 0, 0);
+                            break;
 
-                case "[":
-                    // push
-                    this.scene.pushMatrix();
-                    break;
+                        case "^":
+                            // rotacao positiva eixo YY
+                            this.scene.rotate(this.angle, 0, 1, 0);
+                            break;
+                        
+                        case "&":
+                            // rotacao negativa eixo YY
+                            this.scene.rotate(-this.angle, 0, 1, 0);
+                            break;
 
-                case "]":
-                    // pop
-                    this.scene.popMatrix();
-                    break;
+                        case "[":
+                            // push
+                            this.scene.pushMatrix();
+                            break;
 
-                // processa primitiva definida na gramatica, se existir
-                default:
-                    var primitive=this.grammar[this.axiom[this.i]];
+                        case "]":
+                            // pop
+                            this.scene.popMatrix();
+                            break;
 
-                    if ( primitive )//&& this.i < this.depth)
-                    {
-                        primitive.display();
-                        this.scene.translate(0, 1, 0);
+                        // processa primitiva definida na gramatica, se existir
+                        default:
+                            var primitive=this.grammar[this.axiom[i]];
+
+                        if ( primitive )
+                        {
+                            primitive.display();
+                            this.scene.translate(0, 1, 0);
+                        }
+                        break;
                     }
-                    break;
+                }
             }
-            c++;
-        }
+        
         this.scene.popMatrix();
     }
+
+
+
 }

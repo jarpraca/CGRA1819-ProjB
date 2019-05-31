@@ -28,31 +28,8 @@ class MyScene extends CGFscene {
         this.appearance = new CGFappearance(this);
         this.terrain = new MyTerrain(this);
         this.house = new MyHouse(this);
-/*
-        //Lightning
-        this.axiom = "X";
-        this.ruleF = "FF";
-        this.ruleX = "F[-X][X]F[-X]+FX";
-        this.angle = 25.0;
-        this.iterations = 3;
-        this.scaleFactor = 0.5;
-        this.lightning = new MyLightning(this);
+        this.bird = new MyBird(this, Math.PI/2, 0, 10, 20, 10);
 
-        this.doGenerate = function () {
-            this.lightning.generate(
-                this.axiom,
-                {
-                    "F": [ this.ruleF ],
-                    "X": [ this.ruleX ]
-                },
-                this.angle,
-                this.iterations,
-                this.scaleFactor
-            );
-        }
-
-        // do initial generation
-        this.doGenerate();
 
         // Tree
         this.axiom = "X"; //
@@ -61,10 +38,14 @@ class MyScene extends CGFscene {
         this.angle = 60.0;
         this.iterations = 5;
         this.scaleFactor = 0.6;
-        this.tree = new MyLPlant(this);
+        this.tree1 = new MyLPlant(this);
+        this.tree2 = new MyLPlant(this);
+        this.tree3 = new MyLPlant(this);
+        this.tree4 = new MyLPlant(this);
+        this.tree5 = new MyLPlant(this);
 
-        this.doGenerate = function () {
-            this.tree.generate(
+        this.doGenerateT = function () {
+            this.tree1.generate(
                 this.axiom,
                 {
                     "F": [ "FF" ],
@@ -77,8 +58,97 @@ class MyScene extends CGFscene {
         }
 
         // do initial generation
-        this.doGenerate();
-        */
+        this.doGenerateT();
+
+        this.doGenerateT = function () {
+            this.tree2.generate(
+                this.axiom,
+                {
+                    "F": [ "FF" ],
+                    "X": [ "F[-X][X]F[-X]+X", "F[-X][X]+X", "F[+X]-X", "F[/X][X]F[\\X]+X", "F[\X][X]/X", "F[/X]\X", "F[^X][X]F[&X]^X", "F[^X]&X", "F[&X]^X" ]
+                },
+                this.angle,
+                this.iterations,
+                this.scaleFactor
+            );
+        }
+
+        // do initial generation
+        this.doGenerateT();
+
+        this.doGenerateT = function () {
+            this.tree3.generate(
+                this.axiom,
+                {
+                    "F": [ "FF" ],
+                    "X": [ "F[-X][X]F[-X]+X", "F[-X][X]+X", "F[+X]-X", "F[/X][X]F[\\X]+X", "F[\X][X]/X", "F[/X]\X", "F[^X][X]F[&X]^X", "F[^X]&X", "F[&X]^X" ]
+                },
+                this.angle,
+                this.iterations,
+                this.scaleFactor
+            );
+        }
+
+        // do initial generation
+        this.doGenerateT();
+
+        this.doGenerateT = function () {
+            this.tree4.generate(
+                this.axiom,
+                {
+                    "F": [ "FF" ],
+                    "X": [ "F[-X][X]F[-X]+X", "F[-X][X]+X", "F[+X]-X", "F[/X][X]F[\\X]+X", "F[\X][X]/X", "F[/X]\X", "F[^X][X]F[&X]^X", "F[^X]&X", "F[&X]^X" ]
+                },
+                this.angle,
+                this.iterations,
+                this.scaleFactor
+            );
+        }
+
+        // do initial generation
+        this.doGenerateT();
+
+        this.doGenerateT = function () {
+            this.tree5.generate(
+                this.axiom,
+                {
+                    "F": [ "FF" ],
+                    "X": [ "F[-X][X]F[-X]+X", "F[-X][X]+X", "F[+X]-X", "F[/X][X]F[\\X]+X", "F[\X][X]/X", "F[/X]\X", "F[^X][X]F[&X]^X", "F[^X]&X", "F[&X]^X" ]
+                },
+                this.angle,
+                this.iterations,
+                this.scaleFactor
+            );
+        }
+
+        // do initial generation
+        this.doGenerateT();
+        
+
+        //Lightning
+        this.axiom = "X";
+        this.ruleF = "FF";
+        this.ruleX = "F[-X][X]F[-X]+FX";
+        this.angle = 25.0;
+        this.iterations = 3;
+        this.scaleFactor = 0.5;
+        this.lightning = new MyLightning(this);
+
+        this.doGenerateL = function () {
+            this.lightning.generate(
+                this.axiom,
+                {
+                    "F": [ this.ruleF ],
+                    "X": [ this.ruleX, "F[-X][X]F[-X]+X", "F[-X][X]+X", "F[/X][X]F[\\X]+X", "F[\X][X]/X", "F[^X][X]F[&X]^X"]
+                },
+                this.angle,
+                this.iterations,
+                this.scaleFactor
+            );
+        }
+
+        // do initial generation
+        this.doGenerateL();
     }
     initLights() {
         this.lights[0].setPosition(15, 2, 5, 1);
@@ -102,25 +172,53 @@ class MyScene extends CGFscene {
         var keysPressed=false;
         // Check for key codes e.g. in https://keycode.info/
         if (this.gui.isKeyPressed("KeyW")) {
+            this.bird.accelerate(1);
             text+=" W ";
             keysPressed=true;
         }
         if (this.gui.isKeyPressed("KeyS")) {
+            this.bird.accelerate(-1);
             text+=" S ";
             keysPressed=true;
         }
+        if (this.gui.isKeyPressed("KeyA")) {
+            this.bird.turn(Math.PI/32);
+            text+=" A ";
+            keysPressed=true;
+        }
+        if (this.gui.isKeyPressed("KeyD")) {
+            this.bird.turn(-Math.PI/32);
+            text+=" D ";
+            keysPressed=true;
+        }
+        if (this.gui.isKeyPressed("KeyR")) {
+            this.bird.reset();
+            text+=" R ";
+            keysPressed=true;
+        }
+        if (this.gui.isKeyPressed("KeyP")) {
+            this.bird.descend();
+            text+=" P ";
+            keysPressed=true;
+        }
         if (this.gui.isKeyPressed("KeyL")) {
-            this.lSystem.startAnimation(t);
+            
+            this.lightning.start = true;
             text+=" L ";
             keysPressed=true;
         }
         if (keysPressed)
-            console.log(text);
+        console.log(text);
     }
         
     update(t){
+        this.bird.updateBuffers();
         this.checkKeys(t);
-        //this.lightning.update(t);
+        if(this.lightning.start == true){
+            this.lightning.startAnimation(t);
+            this.lightning.start=false;
+        }
+        this.lightning.update(t);
     }
 
     display() {
@@ -146,16 +244,42 @@ class MyScene extends CGFscene {
 		this.appearance.setShininess(10.0);
 
         // ---- BEGIN Primitive drawing section
-        
         this.pushMatrix();
-        this.translate(0, 5, 0);
-        this.house.display();
-        //if(this.lightning.active)
-            //this.lightning.display();
+        this.bird.display();
         this.popMatrix();
-        //this.pushMatrix();
+
+        this.pushMatrix();
+        this.translate(-40, 0, -15);
+        this.scale(8, 8, 8);
+        this.house.display();
+        this.popMatrix();
+
+        this.pushMatrix();
+        this.translate(-20, 0, -40);
+        this.scale(4, 4, 4);
+        this.tree1.display();
+        this.translate(2, 0, -2);
+        this.tree2.display();
+        this.translate(1, 0, -0.5);
+        this.tree3.display();
+        this.translate(2, 0, 0);
+        this.tree4.display();
+        this.translate(1.7, 0, -0.5);
+        this.tree5.display();
+        this.popMatrix();
+
+        this.pushMatrix();
+        this.translate(-20, 20, 10);
+        this.scale(4, 2, 4);
+        if(this.lightning.active)
+            this.lightning.display();
+        this.popMatrix();
+
+        this.pushMatrix();
+        this.translate(0, -12, 0);
+        this.scale(3, 3, 3);
         this.terrain.display();
-        //this.popMatrix();
+        this.popMatrix();
         // ---- END Primitive drawing section
     }
 }

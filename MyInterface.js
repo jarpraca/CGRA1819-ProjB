@@ -43,6 +43,9 @@ class MyInterface extends CGFinterface {
 
         this.initKeys();
 
+        this.gui.add(this.scene.bird, 'speedFactor', 0.1, 3.0).name('speedFactor');
+        this.gui.add(this.scene.bird, 'scaleFactor', 0.5, 3.0).name('scaleFactor');
+
         return true;
     }
         
