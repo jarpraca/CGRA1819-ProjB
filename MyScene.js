@@ -30,6 +30,15 @@ class MyScene extends CGFscene {
         this.house = new MyHouse(this);
         this.bird = new MyBird(this, Math.PI/2, 0, 10, 20, 10);
 
+      
+                // Feather Material
+		this.cubemapMaterial = new CGFappearance(this);
+		this.cubemapMaterial.setAmbient(0.6, 0.6, 0.6, 1);
+		this.cubemapMaterial.setDiffuse(0.8, 0.8, 0.8, 1);
+		this.cubemapMaterial.setSpecular(0, 0, 0, 1);
+		this.cubemapMaterial.setShininess(10.0);
+		this.cubemapMaterial.loadTexture('images/cubemap.png');
+        this.cubemapMaterial.setTextureWrap('REPEAT', 'REPEAT');
 
         // Tree
         this.axiom = "X"; //
@@ -43,6 +52,7 @@ class MyScene extends CGFscene {
         this.tree3 = new MyLPlant(this);
         this.tree4 = new MyLPlant(this);
         this.tree5 = new MyLPlant(this);
+        this.cubemap = new MyCubeMap(this);
 
         this.doGenerateT = function () {
             this.tree1.generate(
@@ -151,20 +161,18 @@ class MyScene extends CGFscene {
         this.doGenerateL();
     }
     initLights() {
-        this.lights[0].setPosition(15, 2, 5, 1);
-        this.lights[0].setDiffuse(1.0, 1.0, 1.0, 1.0);
+        this.lights[0].setPosition(0, 50, 0, 1);
+        this.lights[0].setDiffuse(0.8, 0.8, 0.8, 1.0);
+        this.lights[0].setAmbient(0.8, 0.8, 0.8, 1.0);
+        this.lights[0].setSpecular(0.6, 0.6, 0.6, 1.0);
         this.lights[0].enable();
         this.lights[0].update();
     }
     initCameras() {
         //this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(40, 40, 40), vec3.fromValues(-5, -2, -5));
-        this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(100, 100, 100), vec3.fromValues(0, 0, 0));
+        this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(50, 50, 50), vec3.fromValues(0, 0, 0));
     }
     setDefaultAppearance() {
-        this.setAmbient(0.2, 0.4, 0.8, 1.0);
-        this.setDiffuse(0.2, 0.4, 0.8, 1.0);
-        this.setSpecular(0.2, 0.4, 0.8, 1.0);
-        this.setShininess(10.0);
     }
 
     checkKeys(t) {
@@ -245,41 +253,62 @@ class MyScene extends CGFscene {
 
         // ---- BEGIN Primitive drawing section
         this.pushMatrix();
+        this.scale(0.3,0.3,0.3);
         this.bird.display();
         this.popMatrix();
 
         this.pushMatrix();
-        this.translate(-40, 0, -15);
-        this.scale(8, 8, 8);
+        this.translate(-3, 0, -1);
+        this.scale(2, 2, 2);
         this.house.display();
         this.popMatrix();
 
         this.pushMatrix();
-        this.translate(-20, 0, -40);
-        this.scale(4, 4, 4);
+        this.translate(-3, 0, -12);
+        this.scale(1.5, 1.5, 1.5);
         this.tree1.display();
         this.translate(2, 0, -2);
         this.tree2.display();
-        this.translate(1, 0, -0.5);
+        this.translate(0.6, 0, -0.3);
         this.tree3.display();
-        this.translate(2, 0, 0);
+        this.translate(1.4, 0, 0);
         this.tree4.display();
-        this.translate(1.7, 0, -0.5);
+        this.translate(1, 0, -0.3);
         this.tree5.display();
         this.popMatrix();
 
         this.pushMatrix();
-        this.translate(-20, 20, 10);
-        this.scale(4, 2, 4);
-        if(this.lightning.active)
-            this.lightning.display();
+        this.translate(-10, 0, -5);
+        this.rotate(Math.PI/2, 0,1,0);
+        this.scale(-1.5, 1.5, 1.5);
+        this.tree2.display();
+        this.translate(2, 0, -2);
+        this.tree3.display();
+        this.translate(0.6, 0, -0.3);
+        this.tree1.display();
+        this.translate(1.4, 0, 0);
+        this.tree5.display();
+        this.translate(1, 0, -0.3);
+        this.tree4.display();
         this.popMatrix();
 
         this.pushMatrix();
-        this.translate(0, -12, 0);
-        this.scale(3, 3, 3);
+        this.scale(40,40,40);
+        this.cubemapMaterial.apply();
+        this.cubemap.display();
+        this.popMatrix();
+
+        this.pushMatrix();
+        this.translate(0, -2.5, 0);
         this.terrain.display();
         this.popMatrix();
+
+          
+        if(this.lightning.active){
+            this.pushMatrix();
+            this.lightning.display();
+            this.popMatrix();
+        }
         // ---- END Primitive drawing section
     }
 }

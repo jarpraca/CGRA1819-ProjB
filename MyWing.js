@@ -4,8 +4,10 @@
  * @param scene - Reference to MyScene object
  */
 class MyWing extends CGFobject {
-	constructor(scene, orientation, velocity, x,y,z) {
+	constructor(scene, velocity, speedFactor) {
                 super(scene);
+                this.velocity = velocity;
+                this.speedFactor = speedFactor;
 		this.initBuffers();
 	}
 	initBuffers() {
@@ -63,7 +65,7 @@ class MyWing extends CGFobject {
                 this.scene.pushMatrix();
 		this.featherMaterial.apply();
                 this.scene.translate(0,0,11);
-                this.scene.rotate((Math.PI/6)*(Math.sin(t)*0.5), 1,0,0);
+                this.scene.rotate((Math.PI/6)*(Math.sin(t)*(this.velocity/10)*this.speedFactor*0.5), 1,0,0);
                 this.scene.rotate((Math.PI/6), 1,0,0);
                 this.scene.translate(0,0,5);
                 this.scene.scale(-4,1,5);

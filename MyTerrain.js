@@ -15,11 +15,11 @@ class MyTerrain extends CGFobject {
         this.plane = new Plane(this.scene, 32);
         
         // Textures
-        this.texture = new CGFtexture(this.scene, "images/terrain.jpg");
+        this.texture = new CGFtexture(this.scene, "images/terrain4.jpg");
 		this.scene.appearance.setTexture(this.texture);
 		this.scene.appearance.setTextureWrap('REPEAT', 'REPEAT');
 
-		this.texture2 = new CGFtexture(this.scene, "images/heightmap3.jpg");
+		this.texture2 = new CGFtexture(this.scene, "images/heightmap5.jpg");
 		this.texture3 = new CGFtexture(this.scene, "images/altimetry.png");
         
         // Shaders

@@ -11,10 +11,13 @@ class MyBranch extends CGFobject {
 	initBuffers() {
         // Wood
         this.wood = new CGFappearance(this.scene);
-        this.wood.setAmbient(86/2550, 47/2550, 14/2550, 1.0);
-        this.wood.setDiffuse(86/255, 47/255, 14/255, 1.0);
+        this.wood.setAmbient(170/255, 117/255, 74/255, 1.0);
+        this.wood.setDiffuse(170/255, 117/255, 74/255, 1.0);
         this.wood.setSpecular(0, 0, 0, 1.0);
         this.wood.setShininess(10.0);
+				this.wood.loadTexture('images/trunk.jpg');
+				this.wood.setTextureWrap('REPEAT', 'REPEAT');
+
 
 		//Initialize scene objects
 		this.cylinder = new MyCylinder(this.scene, 4);
@@ -34,7 +37,7 @@ disableNormalViz() {
 	display() {
 		this.scene.pushMatrix();
         this.wood.apply();
-        this.scene.scale(0.5, 1, 0.5);
+        this.scene.scale(1.5, 1, 1.5);
 		this.cylinder.display();
 		this.scene.popMatrix();
 	}

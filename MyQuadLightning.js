@@ -9,13 +9,14 @@ class MyQuadLightning extends CGFobject {
 		this.initBuffers();
 	}
 	initBuffers() {	
-		// Lightning Material
+
+		// Feather Material
 		this.lightningMaterial = new CGFappearance(this.scene);
 		this.lightningMaterial.setAmbient(1, 1, 1, 1);
 		this.lightningMaterial.setDiffuse(1, 1, 1, 1);
 		this.lightningMaterial.setSpecular(1, 1, 1, 1);
 		this.lightningMaterial.setShininess(10.0);
-
+		
 		//Initialize scene objects
 		this.quad = new MyQuad(this.scene);
 	}
@@ -36,10 +37,12 @@ class MyQuadLightning extends CGFobject {
     }
 	
 	display() {		
+
+		
 		// Quad
 		this.scene.pushMatrix();
         this.scene.scale(0.1, 1, 0);
-        this.scene.translate(0.5, 0.5, 0);
+		this.scene.translate(0.5, 0.5, 0);
 		this.lightningMaterial.apply();
 		this.quad.display();
 		this.scene.popMatrix();

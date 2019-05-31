@@ -11,10 +11,13 @@ class MyLeaf extends CGFobject {
 	initBuffers() {
         // Green
         this.green = new CGFappearance(this.scene);
-        this.green.setAmbient(56/255, 109/255, 55/255, 1.0);
-        this.green.setDiffuse(56/255, 109/255, 55/255, 1.0);
+        this.green.setAmbient(120/255, 179/255, 120/255, 1.0);
+        this.green.setDiffuse(120/255, 179/255, 120/255, 1.0);
         this.green.setSpecular(0.5, 0.8, 0.5, 1.0);
-        this.green.setShininess(10.0);
+				this.green.setShininess(10.0);
+				this.green.loadTexture('images/leaves.jpg');
+				this.green.setTextureWrap('REPEAT', 'REPEAT');
+				
 
 		//Initialize scene objects
 		this.diamond = new MyDiamond(this.scene);
@@ -34,7 +37,7 @@ disableNormalViz() {
 	display() {
 		this.scene.pushMatrix();
         this.green.apply();
-        this.scene.scale(3, 3, 3);
+        this.scene.scale(6, 6, 6);
 		this.diamond.display();
 		this.scene.popMatrix();
 	}

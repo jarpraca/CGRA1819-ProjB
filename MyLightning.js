@@ -16,38 +16,58 @@ class MyLightning extends MyLSystem {
         };
     }
     startAnimation(t){
+
+        console.log("Starting animation");
         this.active=true;
         this.startTime=t;
+        console.log("Starting Time" + this.startTime);
         this.depth=0;
         
-        this.axiom = "X";
-        this.ruleF = "FF";
-        this.ruleX = "F[-X][X]F[-X]+FX";
-        //this.scene.doGenerate();
-        super.iterate();
+        console.log("Initial Depth" + this.depth);
+        this.scene.doGenerateL();
+        //super.iterate();
+        
+
     }
 
     update(t){
         if(this.active){
             this.depth += (this.axiom.length / 10) ;
+            
+            console.log("Update lightning");
+            console.log("t delta " + (t - this.startTime));
+            console.log("Axiom length " + this.axiom.length);
+            console.log("Axiom length /(1000/50) " +  (this.axiom.length / (1000/50)));
+            console.log("Depth " + this.depth);
 
-            if(this.depth>this.axiom.length)
+            if(this.depth>200){
                 this.active=false;
+            }
+
         }
+
     }
+
 
     display(){
         this.scene.pushMatrix();
-        //this.scene.rotate(Math.PI, 0, 0, 1);
-        this.scene.scale(1, -1, 1);
+        this.scene.translate(0,20,0);
+        this.scene.scale(-1,-1,-1);
 
         var i;
 
+        this.pushes=0;
+        this.pops=0;
         // percorre a cadeia de caracteres
-            for (i=0; i<this.axiom.length; ++i){                
+            for (i=0; i<this.axiom.length; ++i){
+                
+                
+                //console.log("Trying to display, Axiomlength: " + this.axiom.length + " depth: " + this.depth + " current iteration: " + i);
+                
 
                 if(i < this.depth){
                     
+                    //console.log("Good Depth");
                     // verifica se sao caracteres especiais
                     switch(this.axiom[i]){
                         case "+":
@@ -82,11 +102,13 @@ class MyLightning extends MyLSystem {
 
                         case "[":
                             // push
+                            this.pushes++;
                             this.scene.pushMatrix();
                             break;
 
                         case "]":
                             // pop
+                            this.pops++;
                             this.scene.popMatrix();
                             break;
 
@@ -100,12 +122,22 @@ class MyLightning extends MyLSystem {
                             this.scene.translate(0, 1, 0);
                         }
                         break;
+
+
                     }
+
                 }
             }
+            
+        
+        console.log("Pushes: " +this.pushes +" pops: " + this.pops);
+        
         
         this.scene.popMatrix();
+        this.scene.popMatrix();
+        //this.scene.popMatrix();
     }
+    
 
 
 

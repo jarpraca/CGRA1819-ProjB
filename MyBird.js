@@ -26,9 +26,9 @@ class MyBird extends CGFobject {
 
                 // Feather Material
 		this.featherMaterial = new CGFappearance(this.scene);
-		this.featherMaterial.setAmbient(0.7, 0.7, 0.7, 1);
-		this.featherMaterial.setDiffuse(0.2, 0.2, 0.2, 1);
-		this.featherMaterial.setSpecular(0.4, 0.4, 0.4, 1);
+		this.featherMaterial.setAmbient(0, 0, 0, 1);
+		this.featherMaterial.setDiffuse(0.6, 0.6, 0.6, 1);
+		this.featherMaterial.setSpecular(0, 0, 0, 1);
 		this.featherMaterial.setShininess(10.0);
 		this.featherMaterial.loadTexture('images/feathers.jpg');
                 this.featherMaterial.setTextureWrap('REPEAT', 'REPEAT');
@@ -47,14 +47,14 @@ class MyBird extends CGFobject {
                 this.quad = new MyQuad(this.scene);
                 this.prism = new MyPrism(this.scene, 4, 2);
                 this.pyram = new MyPyramid(this.scene, 4, 2);
-                this.wing = new MyWing(this.scene);
+                this.wing = new MyWing(this.scene, this.velocity, this.speedFactor);
                 
-                this.branch1=new MyTreeBranch(this.scene,Math.floor(Math.random() * (-30)) -10, Math.floor(Math.random() * 30) + 10 );
-                this.branch2=new MyTreeBranch(this.scene,Math.floor(Math.random() * 30) + 10,Math.floor(Math.random() * (-30)) -10);
-                this.branch3=new MyTreeBranch(this.scene,Math.floor(Math.random() * (-30)) -10,Math.floor(Math.random() * (-30)) -10);
-                this.branch4=new MyTreeBranch(this.scene,Math.floor(Math.random() * 30) + 10,Math.floor(Math.random() * 30) + 10);
+                this.branch1=new MyTreeBranch(this.scene,Math.random() * 25, Math.random() * 30);
+                this.branch2=new MyTreeBranch(this.scene,Math.random() * 25 + 25, Math.random() * 30);
+                this.branch3=new MyTreeBranch(this.scene,Math.random() * 25, Math.random() * (-30));
+                this.branch4=new MyTreeBranch(this.scene,Math.random() * 25 + 25, Math.random() * (-30));
                 
-                this.nest = new MyNest(this.scene,30,30);
+                this.nest = new MyNest(this.scene,-8,-18);
         }
 
         reset(){
@@ -71,13 +71,16 @@ class MyBird extends CGFobject {
 
         }
         accelerate(v){
-                this.velocity+=v*this.speedFactor;
+                if(this.velocity + v*this.speedFactor >=0)
+                        this.velocity+=v*this.speedFactor;
 
         }
         descend(){
-                this.catchingBranch = true;
-                this.descending=true;
-                console.log("Ya ja vai");
+                if(!this.catchingBranch){
+                        this.catchingBranch = true;
+                        this.descending=true;
+                        console.log("Ya ja vai");
+                }
 
         }
         updateBuffers() { 
@@ -169,6 +172,10 @@ class MyBird extends CGFobject {
                                 this.scene.translate(-1.5*Math.cos(Math.PI/4)*Math.cos(this.orientation),7*Math.sin(Math.PI/4),-1.5*Math.cos(Math.PI/4)*Math.sin(this.orientation));
                                                     
                         }
+                        if(this.catchingBranch==true && this.descending ==true){
+                                this.scene.translate(-1.5*Math.cos(-Math.PI/4)*Math.cos(this.orientation),7*Math.sin(-Math.PI/4),-1.5*Math.cos(-Math.PI/4)*Math.sin(this.orientation));
+                                                    
+                        }
                 }
                 this.branch1.display();
                 this.scene.popMatrix();
@@ -188,6 +195,10 @@ class MyBird extends CGFobject {
                                 this.scene.translate(-1.5*Math.cos(Math.PI/4)*Math.cos(this.orientation),7*Math.sin(Math.PI/4),-1.5*Math.cos(Math.PI/4)*Math.sin(this.orientation));
                                                     
                         }
+                        if(this.catchingBranch==true && this.descending ==true){
+                                this.scene.translate(-1.5*Math.cos(-Math.PI/4)*Math.cos(this.orientation),7*Math.sin(-Math.PI/4),-1.5*Math.cos(-Math.PI/4)*Math.sin(this.orientation));
+                                                    
+                        }
                 }
                 this.branch2.display();
                 this.scene.popMatrix();
@@ -205,6 +216,10 @@ class MyBird extends CGFobject {
                         this.scene.translate(0,0,-2.5);
                         if(this.catchingBranch==true && this.descending ==false){
                                 this.scene.translate(-1.5*Math.cos(Math.PI/4)*Math.cos(this.orientation),7*Math.sin(Math.PI/4),-1.5*Math.cos(Math.PI/4)*Math.sin(this.orientation));
+                                                    
+                        }
+                        if(this.catchingBranch==true && this.descending ==true){
+                                this.scene.translate(-1.5*Math.cos(-Math.PI/4)*Math.cos(this.orientation),7*Math.sin(-Math.PI/4),-1.5*Math.cos(-Math.PI/4)*Math.sin(this.orientation));
                                                     
                         }
                 }
@@ -227,6 +242,10 @@ class MyBird extends CGFobject {
                                 this.scene.translate(-1.5*Math.cos(Math.PI/4)*Math.cos(this.orientation),7*Math.sin(Math.PI/4),-1.5*Math.cos(Math.PI/4)*Math.sin(this.orientation));
                                                     
                         }
+                        if(this.catchingBranch==true && this.descending ==true){
+                                this.scene.translate(-1.5*Math.cos(-Math.PI/4)*Math.cos(this.orientation),7*Math.sin(-Math.PI/4),-1.5*Math.cos(-Math.PI/4)*Math.sin(this.orientation));
+                                                    
+                        }
                 }
                 this.branch4.display();
                 this.scene.popMatrix();
@@ -245,10 +264,10 @@ class MyBird extends CGFobject {
                 }
                 
                 this.scene.pushMatrix();
-                this.scene.scale(this.scaleFactor,this.scaleFactor,this.scaleFactor);
                 this.scene.translate(0,2*Math.sin(this.t),0,0);
                 this.scene.translate(this.x, this.y, this.z);
                 this.scene.scale(0.3,0.3,0.3);
+                this.scene.scale(this.scaleFactor,this.scaleFactor,this.scaleFactor);
                 this.scene.rotate(this.orientation,0,1,0);
 
                 this.scene.pushMatrix();
@@ -316,7 +335,7 @@ class MyBird extends CGFobject {
 
 
                 this.scene.pushMatrix();
-                this.scene.rotate((Math.PI/4)*((Math.sin(this.t*this.speedFactor)+0.1)*0.5),1,0,0);
+                this.scene.rotate((Math.PI/4)*((Math.sin(this.t*this.speedFactor *(this.velocity/10)+0.1))*0.5),1,0,0);
                 this.wing.display(this.t*this.speedFactor);
                 this.scene.popMatrix();
 
@@ -324,20 +343,10 @@ class MyBird extends CGFobject {
 
                 this.scene.pushMatrix();
                 this.scene.scale(1,1,-1);
-                this.scene.rotate((Math.PI/4)*((Math.sin(this.t*this.speedFactor)+0.1)*0.5),1,0,0);
+                this.scene.rotate((Math.PI/4)*((Math.sin(this.t*this.speedFactor*(this.velocity/10)+0.1))*0.5),1,0,0);
                 this.wing.display(this.t*this.speedFactor);
                 this.scene.popMatrix();
 
-               /*
-                this.scene.pushMatrix();
-		this.featherMaterial.apply();
-                this.scene.translate(0,0,5);
-                this.scene.scale(8,5,12);
-                this.scene.rotate(Math.PI/2, 1,0,0);
-                this.quad.display();
-                this.scene.popMatrix();
-
-                */              
 
                 this.scene.pushMatrix();
 		this.featherMaterial.apply();

@@ -16,8 +16,8 @@ class MyNest extends CGFobject {
         
         // Texture
         this.trunkTexture = new CGFappearance(this.scene);
-        this.trunkTexture.setAmbient(1, 1, 1, 1);
-        this.trunkTexture.setDiffuse(1, 1, 1, 1);
+        this.trunkTexture.setAmbient(0.5, 0.5, 0.5, 1);
+        this.trunkTexture.setDiffuse(0.8, 0.8, 0.8, 1);
         this.trunkTexture.setSpecular(0, 0, 0, 1);
         this.trunkTexture.setShininess(10.0);
         this.trunkTexture.loadTexture('images/trunk.jpg');
