@@ -13,15 +13,14 @@ class MyWing extends CGFobject {
 	initBuffers() {
 
                 this.t=0;
-
                 
                 // Feather Material
 		this.featherMaterial = new CGFappearance(this.scene);
 		this.featherMaterial.setAmbient(0.7, 0.7, 0.7, 1);
-		this.featherMaterial.setDiffuse(0.2, 0.2, 0.2, 1);
+		this.featherMaterial.setDiffuse(0.3, 0.3, 0.3, 1);
 		this.featherMaterial.setSpecular(0.4, 0.4, 0.4, 1);
 		this.featherMaterial.setShininess(10.0);
-		this.featherMaterial.loadTexture('images/feathers.jpg');
+		this.featherMaterial.loadTexture('images/feathers3.jpg');
 		this.featherMaterial.setTextureWrap('REPEAT', 'REPEAT');
                 
 
@@ -52,16 +51,7 @@ class MyWing extends CGFobject {
                 this.quad.display();
                 this.scene.popMatrix();
 
-                /*
-                this.scene.pushMatrix();
-                this.featherMaterial.apply();
-                this.scene.translate(0,0,5);
-                this.scene.scale(8,5,12);
-                this.scene.rotate(-Math.PI, 1,0,0);
-                this.scene.rotate(-Math.PI/2, 1,0,0);
-                this.quad.display();
-                this.scene.popMatrix();
-                */
+
                 this.scene.pushMatrix();
 		this.featherMaterial.apply();
                 this.scene.translate(0,0,11);
@@ -72,14 +62,6 @@ class MyWing extends CGFobject {
                 this.scene.rotate(Math.PI/2, 1,0,0);
                 this.triangle.display();
                 this.scene.popMatrix();
-
-                
-                
-       
-
-
-        }
-
-        
+        }        
 }
 
