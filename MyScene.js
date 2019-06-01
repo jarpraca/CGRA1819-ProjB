@@ -28,7 +28,7 @@ class MyScene extends CGFscene {
         this.appearance = new CGFappearance(this);
         this.terrain = new MyTerrain(this);
         this.house = new MyHouse(this);
-        this.bird = new MyBird(this, Math.PI/2, 0, 10, 20, 10);
+        this.bird = new MyBird(this, Math.PI/2, 0, 10, 9, 10);
 
       
                 // Feather Material

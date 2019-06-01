@@ -93,7 +93,7 @@ class MyBird extends CGFobject {
                                 this.y-= this.defaultY*(50/1000);
                                 console.log("Descendo");
                         }
-                        if(this.y==2){
+                        if(this.y<=2){
                                 this.descending=false;
                                 if(this.x>this.branch1.x-10 && this.x<this.branch1.x+10 && this.z>this.branch1.z-10 && this.z<this.branch1.z+10 && this.carrying == false){
                                         this.branch1.caught=true;
