@@ -9,6 +9,7 @@ class MyTerrain extends CGFobject {
 		this.initBuffers();
 		this.savedAppearance = scene.appearance;
 	}
+
 	initBuffers() {		
 
 		// Initialize scene objects
@@ -31,7 +32,6 @@ class MyTerrain extends CGFobject {
 	}
 				
   	updateBuffers() { 
-
 	}
 
 	enableNormalViz() {
@@ -61,4 +61,3 @@ class MyTerrain extends CGFobject {
 		this.scene.appearance = this.savedAppearance;
     }
 }
-

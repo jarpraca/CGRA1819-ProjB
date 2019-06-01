@@ -55,7 +55,6 @@ class MyHouse extends CGFobject {
 	}
 				
   	updateBuffers() { 
-
 	}
 
 	enableNormalViz() {
@@ -63,6 +62,7 @@ class MyHouse extends CGFobject {
         this.pyramid.enableNormalViz();
         this.prism.enableNormalViz();
 	}
+	
 	disableNormalViz() {
 			this.cube.disableNormalViz();
 			this.pyramid.disableNormalViz();

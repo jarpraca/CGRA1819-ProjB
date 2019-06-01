@@ -10,6 +10,7 @@ class MyDiamond extends CGFobject {
 		if (coords != undefined)
 			this.updateTexCoords(coords);
 	}
+
 	initBuffers() {
 		this.vertices = [
 			-1, 0, 0,	//0
@@ -57,10 +58,12 @@ class MyDiamond extends CGFobject {
 		this.primitiveType = this.scene.gl.TRIANGLES;
 		this.initGLBuffers();
 	}
+
 	updateBuffers(){
         this.initBuffers();
         this.initNormalVizBuffers();
 	}
+	
 	/**
 	 * @method updateTexCoords
 	 * Updates the list of texture coordinates of the quad

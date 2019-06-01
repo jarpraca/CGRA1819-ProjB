@@ -6,6 +6,7 @@ class MyScene extends CGFscene {
     constructor() {
         super();
     }
+
     init(application) {
         super.init(application);
         this.initCameras();
@@ -15,7 +16,6 @@ class MyScene extends CGFscene {
 
         //Background color
         this.gl.clearColor(0.0, 0.0, 0.0, 1.0);
-
         this.gl.clearDepth(100.0);
         this.gl.enable(this.gl.DEPTH_TEST);
         this.gl.enable(this.gl.CULL_FACE);
@@ -30,8 +30,7 @@ class MyScene extends CGFscene {
         this.house = new MyHouse(this);
         this.bird = new MyBird(this, Math.PI/2, 0, 10, 9, 10);
 
-      
-                // Feather Material
+        // Feather Material
 		this.cubemapMaterial = new CGFappearance(this);
 		this.cubemapMaterial.setAmbient(0.6, 0.6, 0.6, 1);
 		this.cubemapMaterial.setDiffuse(0.8, 0.8, 0.8, 1);
@@ -134,7 +133,6 @@ class MyScene extends CGFscene {
         // do initial generation
         this.doGenerateT();
         
-
         //Lightning
         this.axiom = "X";
         this.ruleF = "FF";
@@ -160,6 +158,7 @@ class MyScene extends CGFscene {
         // do initial generation
         this.doGenerateL();
     }
+
     initLights() {
         this.lights[0].setPosition(0, 50, 0, 1);
         this.lights[0].setDiffuse(0.8, 0.8, 0.8, 1.0);
@@ -168,10 +167,12 @@ class MyScene extends CGFscene {
         this.lights[0].enable();
         this.lights[0].update();
     }
+
     initCameras() {
         //this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(40, 40, 40), vec3.fromValues(-5, -2, -5));
         this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(50, 50, 50), vec3.fromValues(0, 0, 0));
     }
+
     setDefaultAppearance() {
     }
 
@@ -309,6 +310,5 @@ class MyScene extends CGFscene {
             this.lightning.display();
             this.popMatrix();
         }
-        // ---- END Primitive drawing section
     }
 }

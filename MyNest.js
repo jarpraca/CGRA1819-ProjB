@@ -9,7 +9,8 @@ class MyNest extends CGFobject {
         this.x=x;
         this.z=z;
 		this.initBuffers();
-	}
+    }
+    
 	initBuffers() {
 		//Initialize scene objects
         this.cylinder = new MyCylinder(this.scene, 10, 1);
@@ -24,8 +25,7 @@ class MyNest extends CGFobject {
         this.trunkTexture.setTextureWrap('REPEAT', 'REPEAT');
 	}
 				
-  updateBuffers() { 
-
+    updateBuffers() { 
 	}
 
 	display() {
@@ -33,7 +33,6 @@ class MyNest extends CGFobject {
         this.scene.pushMatrix();
 
         this.scene.translate(this.x,0, this.z);
-        
         this.scene.scale(5,5,5);
 
         this.scene.pushMatrix();
@@ -102,10 +101,7 @@ class MyNest extends CGFobject {
 
         
         this.scene.pushMatrix();
-        
-
         this.scene.rotate(Math.PI/8, 0, 1, 0);
-        
 
         this.scene.pushMatrix();
         this.trunkTexture.apply();
@@ -170,7 +166,6 @@ class MyNest extends CGFobject {
         this.scene.scale(0.2,- 1.5, 0.2);
 		this.cylinder.display();
         this.scene.popMatrix();
-
 
         this.scene.popMatrix();
         this.scene.popMatrix();

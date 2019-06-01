@@ -48,10 +48,6 @@ class MyTriangle extends CGFobject {
 			0.5, 0.5
 		]
 		
-
-			
-
-
 		this.primitiveType = this.scene.gl.TRIANGLES;
 		this.initGLBuffers();
 	}

@@ -27,8 +27,7 @@ class MyTreeBranch extends CGFobject {
 		this.branchMaterial.loadTexture('images/branch.jpeg');
 		this.branchMaterial.setTextureWrap('REPEAT', 'REPEAT');
         }
-        updateBuffers() { 
-
+        updateBuffers() {
         }
 
 	display() {
@@ -45,4 +44,3 @@ class MyTreeBranch extends CGFobject {
                 this.scene.popMatrix();
 	}
 }
-

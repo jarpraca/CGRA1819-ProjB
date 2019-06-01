@@ -9,7 +9,6 @@ class MyQuadLightning extends CGFobject {
 		this.initBuffers();
 	}
 	initBuffers() {	
-
 		// Feather Material
 		this.lightningMaterial = new CGFappearance(this.scene);
 		this.lightningMaterial.setAmbient(1, 1, 1, 1);
@@ -22,7 +21,6 @@ class MyQuadLightning extends CGFobject {
 	}
 				
     updateBuffers() { 
-
 	}
 
 	enableNormalViz() {
@@ -37,8 +35,6 @@ class MyQuadLightning extends CGFobject {
     }
 	
 	display() {		
-
-		
 		// Quad
 		this.scene.pushMatrix();
         this.scene.scale(0.1, 1, 0);
@@ -48,4 +44,3 @@ class MyQuadLightning extends CGFobject {
 		this.scene.popMatrix();
 	}
 }
-

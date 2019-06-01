@@ -9,12 +9,12 @@ class MyPyramid extends CGFobject {
         this.stacks = stacks;
         this.initBuffers();
     }
+
     initBuffers() {
         this.vertices = [];
         this.indices = [];
         this.normals = [];
         this.texCoords = [];
-
         var ang = 0;
         var alphaAng = 2*Math.PI/this.slices;
 
