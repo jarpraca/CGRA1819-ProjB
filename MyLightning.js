@@ -40,8 +40,6 @@ class MyLightning extends MyLSystem {
 
         var i;
 
-        this.pushes=0;
-        this.pops=0;
         // percorre a cadeia de caracteres
             for (i=0; i<this.axiom.length; ++i){             
 
@@ -81,13 +79,11 @@ class MyLightning extends MyLSystem {
 
                         case "[":
                             // push
-                            this.pushes++;
                             this.scene.pushMatrix();
                             break;
 
                         case "]":
                             // pop
-                            this.pops++;
                             this.scene.popMatrix();
                             break;
 
